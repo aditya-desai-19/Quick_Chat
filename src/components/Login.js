@@ -9,8 +9,8 @@ const Login = () => {
     };
 
     return (
-        <div className='flex flex-col justify-center h-screen items-center'>
-            <div className='border-2 border-gray-300 p-4 text-center shadow-xl'>
+        <div className='flex flex-col justify-center h-2/3 items-center'>
+            <div className='border-2 border-gray-300 p-4 text-center shadow-xl bg-white'>
                 <h2 className='text-2xl font-bold text-gray-800'>Login</h2>
                 <form className='flex flex-col justify-center items-center'>
                     <input type="email" placeholder='Email' className='border-2 border-gray-300 m-2 w-64 p-2 rounded-md' />
