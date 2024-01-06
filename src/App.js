@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserContext from './utils/UserContext';
+import ChatContext from './utils/ChatContext';
 
 const App = () => {
+    const [user, setUser] = useState(null);
+    const [contactUser, setContactUser] = useState(null);
+
+    const getUser = (user) => {
+        setUser(user);
+    }
+
+    const logOutUser = () => {
+        setUser(null);
+    }
+
+    const getUserContactInfo = (searchedUser) => {
+        setContactUser(searchedUser);
+    }
+
     return (
-        <div className='bg-gray-100 h-screen'>
-            <Navbar />
-            <Outlet />
-        </div>
+        <UserContext.Provider value={{ user, getUser, logOutUser }}>
+            <ChatContext.Provider value={{getUserContactInfo, contactUser}}>
+                <div className='bg-gray-100 h-screen'>
+                    <Navbar />
+                    <Outlet />
+                    <ToastContainer />
+                </div>
+            </ChatContext.Provider>
+        </UserContext.Provider>
     )
 }
 
