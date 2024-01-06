@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Message = ({ message, contactUser, user }) => {
+const Message = ({ message, contactUser, user, onClick }) => {
     return (
-        <div>
+        <div className='cursor-pointer' onClick={onClick}>
             {message.senderId === contactUser.uid &&
                 <div className='flex items-center'>
                     <div className='flex flex-col'>

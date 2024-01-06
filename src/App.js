@@ -18,13 +18,13 @@ const App = () => {
         setUser(null);
     }
 
-    const getUserContactInfo = (searchedUser) => {
+    const setUserContactInfo = (searchedUser) => {
         setContactUser(searchedUser);
     }
 
     return (
         <UserContext.Provider value={{ user, getUser, logOutUser }}>
-            <ChatContext.Provider value={{getUserContactInfo, contactUser}}>
+            <ChatContext.Provider value={{setUserContactInfo, contactUser}}>
                 <div className='bg-gray-100 h-screen'>
                     <Navbar />
                     <Outlet />
