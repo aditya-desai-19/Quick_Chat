@@ -20,16 +20,16 @@ const Navbar = () => {
 
     return (
         <div className='flex justify-between items-center bg-blue-600 text-white px-8 py-4 shadow-xl'>
-            <h1 className='text-xl font-bold cursor-pointer'>
+            <h1 className='text-xl font-bold cursor-pointer font-lato'>
                 <Link to={"/"}>Quickchat</Link>
             </h1>
             <ul className='flex text-xl font-bold'>
                 {user !== null ?
                     <>
-                        <li className='mx-2 cursor-pointer'>
+                        <li className='mx-2 cursor-pointer font-lato'>
                             <Link to={"/chat"}>Chat</Link>
                         </li>
-                        <li className='mx-2 cursor-pointer' onClick={handleLogOut}>
+                        <li className='mx-2 cursor-pointer font-lato' onClick={handleLogOut}>
                             Sign out
                         </li>
                     </> :
