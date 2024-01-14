@@ -26,14 +26,8 @@ const Messages = ({ combinedId }) => {
 
     return (
         <div className='h-[calc(100%-154px)] p-2 overflow-y-auto'>
-            {messages.map((message, index) =>
-                <Message
-                    key={index}
-                    message={message}
-                    user={user}
-                    contactUser={contactUser}
-                    onClick={enableOptions}
-                />
+            {messages.map((message) => 
+                <Message key={message.id} message={message} user={user} contactUser={contactUser}/>
             )}
         </div>
     )

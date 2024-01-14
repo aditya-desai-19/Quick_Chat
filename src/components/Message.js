@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import MessageContext from '../utils/MessageContext';
 
-const Message = ({ message, contactUser, user, onClick }) => {
+const Message = ({ message, contactUser, user }) => {
+    const { enableDelete } = useContext(MessageContext);
     return (
-        <div className='cursor-pointer' onClick={onClick}>
+        <div className='cursor-pointer'>
             {message.senderId === contactUser.uid &&
                 <div className='flex items-center'>
                     <div className='flex flex-col'>
@@ -35,7 +37,11 @@ const Message = ({ message, contactUser, user, onClick }) => {
                     </div>
 
                     {message.text ?
-                        <p className='mx-2 bg-blue-500 text-white h-10 max-h-24 max-w-32 rounded-l-lg rounded-b-lg p-2'>
+                        <p 
+                            className='mx-2 bg-blue-500 text-white h-10 max-h-24 max-w-32 rounded-l-lg rounded-b-lg p-2 cursor-pointer focus:bg-gray-500' 
+                            onClick={() => enableDelete(message)}
+                            tabIndex={0}
+                        >
                             {message.senderId === user.uid && message.text}
                         </p> :
                         <img

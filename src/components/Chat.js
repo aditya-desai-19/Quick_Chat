@@ -5,19 +5,22 @@ import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import Messages from './Messages';
 import UserContext from '../utils/UserContext';
 import ChatContext from '../utils/ChatContext';
+import MessageContext from '../utils/MessageContext';
 import { Timestamp, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { v4 as uuid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { toast } from 'react-toastify';
-import MessageContext from '../utils/MessageContext';
+import Modal from './Modal';
 
 const Chat = () => {
     const [text, setText] = useState("");
     const [img, setImg] = useState(null);
     const [combinedId, setCombinedId] = useState("");
-    const [options, setOptions] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+    const [threeDotMenu, setThreeDotMenu] = useState(false);
+    const [msg, setMsg] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
     const { user } = useContext(UserContext);
     const { contactUser } = useContext(ChatContext);
 
@@ -78,16 +81,26 @@ const Chat = () => {
         setImg(e.target.files[0]);
     }
 
-    const enableOptions = () => {
-        setOptions(true);
+    const enableDelete = (msg) => {
+        setIsDelete(true);
+        setMsg(msg);
     }
 
-    const handleClick = () => {
-        setShowMenu(true);
+    const openThreeDotMenu = () => {
+        setThreeDotMenu(true);
+    }
+
+    const handleDeleteModal = () => {
+        setOpenModal(true);
+        setThreeDotMenu(false);
+    }
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
     }
 
     return (
-        <MessageContext.Provider value={{enableOptions}}>
+        <MessageContext.Provider value={{enableDelete}}>
             <div className='flex-1 w-1/2 border-l-2 border-gray-300'>
                 <div className='flex justify-between bg-blue-500 h-20 p-4 text-white items-center'>
                     <div className='flex items-center'>
@@ -98,18 +111,13 @@ const Chat = () => {
                         />
                         <span className='font-bold text-lg mx-2'>{contactUser ? contactUser.displayName : ''}</span>
                     </div>
-                    {options &&
-                        <button className='text-xl cursor-pointer' onClick={handleClick}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
-                    }
+                    {isDelete && <button className='text-xl cursor-pointer' onClick={openThreeDotMenu}>
+                        <FontAwesomeIcon icon={faEllipsisVertical} />
+                    </button>}
+                    {threeDotMenu && <div className='absolute right-72 min-w-32 z-10 bg-white text-black rounded-lg text-center'>
+                        <p className='hover:bg-gray-400 cursor-pointer my-2'onClick={handleDeleteModal}>Delete Message</p>
+                    </div>}
                 </div>
-                {/* {showMenu && 
-                    <div className='float-right'>
-                        <p>Edit Message</p>
-                        <p>Delete Message</p>
-                    </div>
-                } */}
                 <Messages combinedId={combinedId} />
                 <div className='flex p-2'>
                     <input
@@ -129,6 +137,7 @@ const Chat = () => {
                         </button>
                     </div>
                 </div>
+                {openModal && <Modal handleCloseModal={handleCloseModal} msg={msg} combinedId={combinedId}/>}
             </div>
         </MessageContext.Provider>
     )
