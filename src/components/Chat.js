@@ -107,7 +107,7 @@ const Chat = () => {
 
     return (
         <MessageContext.Provider value={{enableDelete}}>
-            <div className={`flex-1 w-1/2 border-l-2 border-gray-300 ${showChat ? 'max-md:w-full' : 'max-md:hidden'}`}>
+            <div className={`flex-1 w-1/2 border-l-2 border-gray-300 ${showChat ? 'max-md:w-full' : 'max-md:hidden'}`} data-testid="chat">
                 <div className='flex justify-between bg-blue-500 h-20 p-4 text-white items-center'>
                     <div className='flex'>
                         <button type='button' className='mr-2 text-lg md:hidden' onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /></button>
@@ -127,7 +127,7 @@ const Chat = () => {
                         <p className='hover:bg-gray-400 cursor-pointer my-2'onClick={handleDeleteModal}>Delete Message</p>
                     </div>}
                 </div>
-                <Messages combinedId={combinedId} />
+                <Messages />
                 <div className='flex p-2'>
                     <input
                         type="text"

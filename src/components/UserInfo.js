@@ -2,7 +2,7 @@ import React from "react";
 
 const UserInfo = ({ user, onClick }) => {
 	return (
-		<div className="flex items-center my-2 p-2 text-white hover:bg-blue-600 cursor-pointer" onClick={onClick}>
+		<div className="flex items-center my-2 p-2 text-white hover:bg-blue-600 cursor-pointer" onClick={onClick} data-testid="userInfo">
 			<img
 				src={user.photoURL}
 				alt="profile-pic"
