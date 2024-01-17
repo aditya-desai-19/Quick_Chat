@@ -5,7 +5,7 @@ const PersonalInfo = () => {
 	const { user } = useContext(UserContext);
 
 	return (
-		<div className='bg-blue-500 text-white flex justify-between h-20 items-center p-4'>
+		<div className='bg-blue-500 text-white flex justify-between h-20 items-center p-4' data-testid="personalInfo">
 			<span className='font-bold text-lg'>QuickChat</span>
 			<div className='flex justify-between'>
 				<img

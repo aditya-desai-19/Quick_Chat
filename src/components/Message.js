@@ -4,7 +4,7 @@ import MessageContext from '../utils/MessageContext';
 const Message = ({ message, contactUser, user }) => {
     const { enableDelete } = useContext(MessageContext);
     return (
-        <div className='cursor-pointer'>
+        <div className='cursor-pointer' data-testid="message">
             {message.senderId === contactUser.uid &&
                 <div className='flex items-center'>
                     <div className='flex flex-col'>

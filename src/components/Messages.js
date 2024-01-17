@@ -4,13 +4,11 @@ import ChatContext from '../utils/ChatContext';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import Message from './Message';
-import MessageContext from '../utils/MessageContext';
 
-const Messages = ({ combinedId }) => {
+const Messages = () => {
     const [messages, setMessages] = useState([]);
     const { user } = useContext(UserContext);
     const { contactUser } = useContext(ChatContext);
-    const {enableOptions} = useContext(MessageContext);
 
     useEffect(() => {
         let combinedId = "";
@@ -22,10 +20,10 @@ const Messages = ({ combinedId }) => {
         });
 
         return () => unsub();
-    }, [combinedId]);
+    }, [user, contactUser]);
 
     return (
-        <div className='h-[calc(100%-154px)] p-2 overflow-y-auto'>
+        <div className='h-[calc(100%-154px)] p-2 overflow-y-auto' data-testid="messages">
             {messages.map((message) => 
                 <Message key={message.id} message={message} user={user} contactUser={contactUser}/>
             )}

@@ -19,7 +19,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='flex justify-between items-center bg-blue-600 text-white px-8 py-4 shadow-xl'>
+        <div className='flex justify-between items-center bg-blue-600 text-white px-8 py-4 shadow-xl' data-testid="navbar">
             <h1 className='text-xl font-bold cursor-pointer font-lato'>
                 <Link to={"/"}>Quickchat</Link>
             </h1>

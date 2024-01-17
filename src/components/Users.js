@@ -106,7 +106,7 @@ const Users = () => {
 	}
 
 	return (
-		<div>
+		<div data-testid="users">
 			<div className='flex items-center px-2 border-b-2 border-gray-100'>
 				<input
 					type="text"

@@ -4,7 +4,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <div className='flex flex-col justify-center items-center bg-gray-700 p-4'>
+        <div className='flex flex-col justify-center items-center bg-gray-700 p-4' data-testid="footer">
             <p className='font-bold text-white text-sm m-2'>
                 &copy;2024 Copyright Quickchat Tech
             </p>
