@@ -6,6 +6,7 @@ import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc, serv
 import { db } from '../firebase';
 import UserContext from '../utils/UserContext';
 import ChatContext from '../utils/ChatContext';
+import ScreenContext from '../utils/ScreenContext';
 
 const Users = () => {
 	const [isSearch, setIsSearch] = useState(false);
@@ -15,6 +16,7 @@ const Users = () => {
 	const [chats, setChats] = useState([]);
 	const { user } = useContext(UserContext);
 	const { setUserContactInfo } = useContext(ChatContext);
+	const { handleChat } = useContext(ScreenContext);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => setErr(false), 5000);
@@ -103,6 +105,7 @@ const Users = () => {
 
 	const handleUserSelect = (contactUser) => {
 		setUserContactInfo(contactUser);
+		handleChat();
 	}
 
 	return (

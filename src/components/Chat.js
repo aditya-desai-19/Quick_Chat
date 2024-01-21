@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEllipsisVertical, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import Messages from './Messages';
 import UserContext from '../utils/UserContext';
@@ -12,6 +12,7 @@ import { v4 as uuid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { toast } from 'react-toastify';
 import Modal from './Modal';
+import ScreenContext from '../utils/ScreenContext';
 
 const Chat = () => {
     const [text, setText] = useState("");
@@ -23,6 +24,7 @@ const Chat = () => {
     const [openModal, setOpenModal] = useState(false);
     const { user } = useContext(UserContext);
     const { contactUser } = useContext(ChatContext);
+    const { showChat, handleChat } = useContext(ScreenContext);
 
     useEffect(() => {
         const combinedId = user.uid > contactUser.uid ? user.uid + contactUser.uid : contactUser.uid + user.uid;
@@ -99,17 +101,24 @@ const Chat = () => {
         setOpenModal(false);
     }
 
+    const handleBack = () => {
+        handleChat();
+    } 
+
     return (
         <MessageContext.Provider value={{enableDelete}}>
-            <div className='flex-1 w-1/2 border-l-2 border-gray-300'>
+            <div className={`flex-1 w-1/2 border-l-2 border-gray-300 ${showChat ? 'max-md:w-full' : 'max-md:hidden'}`}>
                 <div className='flex justify-between bg-blue-500 h-20 p-4 text-white items-center'>
-                    <div className='flex items-center'>
-                        <img
-                            src={contactUser ? contactUser.photoURL : ''}
-                            alt="user-pic"
-                            className='w-12 h-12 rounded-full'
-                        />
-                        <span className='font-bold text-lg mx-2'>{contactUser ? contactUser.displayName : ''}</span>
+                    <div className='flex'>
+                        <button type='button' className='mr-2 text-lg md:hidden' onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <div className='flex items-center'>
+                            <img
+                                src={contactUser ? contactUser.photoURL : ''}
+                                alt="user-pic"
+                                className='w-12 h-12 rounded-full'
+                            />
+                            <span className='font-bold text-lg mx-2'>{contactUser ? contactUser.displayName : ''}</span>
+                        </div>
                     </div>
                     {isDelete && <button className='text-xl cursor-pointer' onClick={openThreeDotMenu}>
                         <FontAwesomeIcon icon={faEllipsisVertical} />
