@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faEllipsisVertical, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import Messages from './Messages';
 import UserContext from '../utils/UserContext';
@@ -18,8 +18,6 @@ const Chat = () => {
     const [text, setText] = useState("");
     const [img, setImg] = useState(null);
     const [combinedId, setCombinedId] = useState("");
-    const [isDelete, setIsDelete] = useState(false);
-    const [threeDotMenu, setThreeDotMenu] = useState(false);
     const [msg, setMsg] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const { user } = useContext(UserContext);
@@ -83,18 +81,9 @@ const Chat = () => {
         setImg(e.target.files[0]);
     }
 
-    const enableDelete = (msg) => {
-        setIsDelete(true);
+    const handleDeleteModal = (msg) => {
         setMsg(msg);
-    }
-
-    const openThreeDotMenu = () => {
-        setThreeDotMenu(true);
-    }
-
-    const handleDeleteModal = () => {
         setOpenModal(true);
-        setThreeDotMenu(false);
     }
 
     const handleCloseModal = () => {
@@ -106,7 +95,7 @@ const Chat = () => {
     } 
 
     return (
-        <MessageContext.Provider value={{enableDelete}}>
+        <MessageContext.Provider value={{handleDeleteModal}}>
             <div className={`flex-1 w-1/2 border-l-2 border-gray-300 ${showChat ? 'max-md:w-full' : 'max-md:hidden'}`} data-testid="chat">
                 <div className='flex justify-between bg-blue-500 h-20 p-4 text-white items-center'>
                     <div className='flex'>
@@ -120,12 +109,6 @@ const Chat = () => {
                             <span className='font-bold text-lg mx-2'>{contactUser ? contactUser.displayName : ''}</span>
                         </div>
                     </div>
-                    {isDelete && <button className='text-xl cursor-pointer' onClick={openThreeDotMenu}>
-                        <FontAwesomeIcon icon={faEllipsisVertical} />
-                    </button>}
-                    {threeDotMenu && <div className='absolute right-72 min-w-32 z-10 bg-white text-black rounded-lg text-center'>
-                        <p className='hover:bg-gray-400 cursor-pointer my-2'onClick={handleDeleteModal}>Delete Message</p>
-                    </div>}
                 </div>
                 <Messages />
                 <div className='flex p-2'>
