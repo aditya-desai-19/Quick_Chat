@@ -2,10 +2,10 @@
   "name": "react_js_template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "npx parcel index.html",
-    "test": "jest"
+    "test": "jest",
+    "build": "parcel build index.html"
   },
   "author": "Aditya Desai",
   "license": "ISC",
